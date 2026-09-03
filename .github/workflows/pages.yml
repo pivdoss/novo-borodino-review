@@ -25,6 +25,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
       - run: mkdir -p dist/images/renders && cp -R images/renders/. dist/images/renders/
+      - run: mkdir -p dist/images/actual-gallery && cp -R dist/images/actual-*.webp dist/images/actual-gallery/
       - run: find dist -type f \( -name '*.html' -o -name '*.js' \) -exec sed -i 's/loading="lazy"/loading="eager"/g' {} +
       - run: find dist -name '*.js' -exec sed -i 's#/images/#/novo-borodino-review/images/#g' {} +
       - run: find dist -name '*.html' -exec sed -i 's#src="/images/#src="/novo-borodino-review/images/#g' {} +
