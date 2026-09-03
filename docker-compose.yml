@@ -1,0 +1,12 @@
+name: novo-borodino
+
+services:
+  site:
+    build:
+      context: .
+      target: development
+    ports:
+      - "4173:4173"
+    env_file:
+      - .env.local
+    profiles: ["development"]
