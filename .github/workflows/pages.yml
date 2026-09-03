@@ -25,6 +25,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
       - run: find dist -name '*.js' -exec sed -i 's#/images/#/novo-borodino-review/images/#g' {} +
+      - run: find dist -name '*.html' -exec sed -i 's#src="/images/#src="/novo-borodino-review/images/#g' {} +
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
