@@ -24,6 +24,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
+      - run: mkdir -p dist/images/renders && cp -R images/renders/. dist/images/renders/
       - run: find dist -name '*.js' -exec sed -i 's#/images/#/novo-borodino-review/images/#g' {} +
       - run: find dist -name '*.html' -exec sed -i 's#src="/images/#src="/novo-borodino-review/images/#g' {} +
       - uses: actions/configure-pages@v5
