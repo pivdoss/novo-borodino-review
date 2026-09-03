@@ -1,18 +1,22 @@
 name: Deploy to GitHub Pages
 
+
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+
 concurrency:
   group: pages
   cancel-in-progress: true
+
 
 jobs:
   build:
@@ -28,14 +32,12 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm run build
+      - name: Adjust asset paths for project Pages URL
+        run: |
+          find dist -type f -print0 | xargs -0 sed -i 's#/images/#/novo-borodino-review/images/#g'
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
   deploy:
     needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-    steps:
-      - uses: actions/deploy-pages@v4
