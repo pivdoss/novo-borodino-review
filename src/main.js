@@ -1,6 +1,7 @@
 const normalizePagesAssets = () => { document.querySelectorAll('img[src^="/images/"], source[src^="/images/"]').forEach((el) => { el.src = '/novo-borodino-review' + el.getAttribute('src'); }); };
 normalizePagesAssets();
-new MutationObserver(normalizePagesAssets).observe(document.documentElement, { subtree: true, attributes: true, attributeFilter: ['src'] });
+new MutationObserver(normalizePagesAssets).observe(document.documentElement, { childList: true, subtree: true, attributes: true, attributeFilter: ['src'] });
+
 
 import './styles/main.css';
 import './styles/lot-landing.css';
@@ -9,10 +10,16 @@ import { initAnalyticsConsent, reachMetrikaGoal } from './analytics.js';
 import { landingMarkup } from './lot-landing.js';
 
 
+
+
 const app = document.querySelector('#app');
 
 
+
+
 if (app && !app.innerHTML.trim()) app.innerHTML = landingMarkup();
+
+
 
 
 const header = document.querySelector('[data-lot-header]');
@@ -27,6 +34,8 @@ if (hero && stickyCta && 'IntersectionObserver' in window) {
 }
 
 
+
+
 const menuButton = document.querySelector('[data-lot-menu]');
 const mobileMenu = document.querySelector('[data-lot-mobile-menu]');
 let menuRestoreFocus;
@@ -34,11 +43,3 @@ const setMobileMenu = (opened) => {
   if (!menuButton || !mobileMenu) return;
   menuButton.setAttribute('aria-expanded', String(opened));
   mobileMenu.hidden = !opened;
-  document.body.classList.toggle('is-menu-open', opened);
-  if (opened) { menuRestoreFocus = document.activeElement; mobileMenu.querySelector('a,button')?.focus(); }
-  else if (menuRestoreFocus instanceof HTMLElement) menuRestoreFocus.focus();
-};
-menuButton?.addEventListener('click', () => setMobileMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
-mobileMenu?.querySelector('[data-lot-menu-close]')?.addEventListener('click', () => setMobileMenu(false));
-mobileMenu?.addEventListener('click', (event) => {
-  if (!event.target.closest('a')) return;
