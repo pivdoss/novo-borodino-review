@@ -1,9 +1,12 @@
 import path from 'node:path';
 import { defineConfig } from 'vite';
 
+
 const input = (file) => path.resolve(process.cwd(), file);
 
+
 export default defineConfig({
+  base: '/novo-borodino-review/',
   build: {
     rollupOptions: {
       input: {
@@ -14,3 +17,4 @@ export default defineConfig({
     },
   },
 });
+
